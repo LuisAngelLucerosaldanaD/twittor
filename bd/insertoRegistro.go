@@ -2,24 +2,27 @@ package bd
 
 import (
 	"context"
-	"time"
 
 	"github.com/LuisAngelLucerosaldanaD/models"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-/*InsertoRegistro es la parada final con la bd para unsertar los datos del usuario*/
+/*InsertoRegistro es la parada final con la BD para insertar los datos del usuario */
 func InsertoRegistro(u models.Usuario) (string, bool, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	defer cancel()
+
+	// ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	// defer cancel()
+
 	db := MongoCN.Database("twiter_clone")
-	coll := db.Collection("usuarios")
+	col := db.Collection("usuarios")
+
 	u.Password, _ = EncriptarPassword(u.Password)
-	result, err := coll.InsertOne(ctx, u)
+
+	result, err := col.InsertOne(context.TODO(), u)
 	if err != nil {
 		return "", false, err
 	}
 
-	objID, _ := result.InsertedID.(primitive.ObjectID)
-	return objID.String(), true, nil
+	ObjID, _ := result.InsertedID.(primitive.ObjectID)
+	return ObjID.String(), true, nil
 }
