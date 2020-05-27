@@ -42,6 +42,5 @@ func LeoTweets(ID string, page int64) ([]*models.DevuelvoTweets, bool) {
 		}
 		resultado = append(resultado, &registro)
 	}
-
 	return resultado, true
 }
