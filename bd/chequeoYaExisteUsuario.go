@@ -10,7 +10,7 @@ import (
 
 /*ChequeoYaExisteUsuario recibe un email como parametro y verifica si ya esta en la base de datos*/
 func ChequeoYaExisteUsuario(email string) (models.Usuario, bool, string) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	db := MongoCN.Database("twiter_clone")
 	coll := db.Collection("usuarios")
